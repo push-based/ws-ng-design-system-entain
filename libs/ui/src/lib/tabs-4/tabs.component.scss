@@ -1,0 +1,67 @@
+:host {
+  // parent wrapper
+  --tab-header-border-color: #6a62fc58;
+
+  // single tab header
+  --tab-item-border-radius: 6px;
+  --tab-item-background: #6a62fc58;
+  --tab-item-color: #4239f2;
+  --tab-item-selected-background: #6a62fc;
+  --tab-item-selected-color: #fff;
+  --tab-item-min-width: 100px;
+
+  --tab-item-disabled-background: #f5f5f5;
+  --tab-item-disabled-color: #ccc;
+
+  // tab content
+  --tab-content-background: #fff;
+}
+
+.tab-header-items {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--tab-header-border-color);
+
+  &.centered-tabs {
+    justify-content: center;
+  }
+}
+
+.tab-header-item {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  min-width: var(--tab-item-min-width);
+  text-align: center;
+  color: var(--tab-item-color);
+  background: var(--tab-item-background);
+  border-radius: var(--tab-item-border-radius) var(--tab-item-border-radius) 0 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  &.selected {
+    background: var(--tab-item-selected-background);
+    color: var(--tab-item-selected-color);
+  }
+
+  &.disabled {
+    background: var(--tab-item-disabled-background);
+    color: var(--tab-item-disabled-color);
+    border: 1px solid var(--tab-header-border-color);
+    border-bottom: none;
+    cursor: not-allowed;
+  }
+}
+
+.full-width-tabs .tab-header-item {
+  flex: 1;
+}
