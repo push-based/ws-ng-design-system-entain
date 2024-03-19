@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   DestroyRef,
@@ -12,11 +11,12 @@ import {
   QueryList,
   SimpleChanges,
 } from '@angular/core';
-import { Tab4 } from './tab.component';
+import { Tab6 } from './tab.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
-  selector: 'ds-tab-group4',
+  selector: 'ds-tab-group6',
   template: `
     <ul
       class="tab-header-items"
@@ -31,7 +31,21 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           [attr.aria-disabled]="tab.disabled ? 'true' : null"
           (click)="!tab.disabled ? selectTab($index) : null"
           role="tab">
-          {{ tab.title }}
+          @if (tab.customHeader?.templateRef; as headerTpl) {
+            <ng-container
+              *ngTemplateOutlet="
+                headerTpl;
+                context: { $implicit: tab.selected(), index: $index }
+              " />
+          } @else if (tab.headerTpl) {
+            <ng-container
+              *ngTemplateOutlet="
+                tab.headerTpl;
+                context: { $implicit: tab.selected(), index: $index }
+              " />
+          } @else {
+            {{ tab.title }}
+          }
         </li>
       }
     </ul>
@@ -42,12 +56,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   `,
   styleUrl: './tabs.component.scss',
   standalone: true,
+  imports: [NgTemplateOutlet],
 })
-export class TabGroup4 implements OnChanges, AfterContentInit {
+export class TabGroup6 implements OnChanges, AfterContentInit {
   private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef);
 
-  @ContentChildren(Tab4) tabs?: QueryList<Tab4>;
+  @ContentChildren(Tab6) tabs?: QueryList<Tab6>;
 
   @Input() fullWidthTabs: boolean = false;
 

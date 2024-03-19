@@ -1,6 +1,7 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterContentInit,
-  ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   DestroyRef,
@@ -12,26 +13,45 @@ import {
   QueryList,
   SimpleChanges,
 } from '@angular/core';
-import { Tab4 } from './tab.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TAB_OPTIONS } from './tabs.token';
+import { Tab } from './tab.component';
 
 @Component({
-  selector: 'ds-tab-group4',
+  selector: 'ds-tab-group',
   template: `
-    <ul
+    <ul role="tablist"
       class="tab-header-items"
       [class.full-width-tabs]="fullWidthTabs"
-      [class.centered-tabs]="centeredTabs">
-      @for (tab of tabs; track tab.title) {
+      [class.centered-tabs]="centeredTabs"
+    >
+      @for (tab of tabs!; track tab) {
         <li
           class="tab-header-item"
-          [class.selected]="activeIndex === $index"
-          [attr.aria-selected]="activeIndex === $index ? 'true' : null"
+          role="tab"
           [class.disabled]="tab.disabled"
-          [attr.aria-disabled]="tab.disabled ? 'true' : null"
+          [attr.aria-disabled]="tab.disabled ? 'true' : 'false'"
+          [class.selected]="tab.selected()"
+          [attr.aria-selected]="tab.selected() ? 'true' : 'false'"
           (click)="!tab.disabled ? selectTab($index) : null"
-          role="tab">
-          {{ tab.title }}
+        >
+          @if (tab.customHeader?.templateRef; as headerTpl) {
+            <ng-container
+              *ngTemplateOutlet="
+                headerTpl;
+                context: { $implicit: tab.selected(), index: $index }
+              "
+            />
+          } @else if (tab.headerTpl) {
+            <ng-container
+              *ngTemplateOutlet="
+                tab.headerTpl;
+                context: { $implicit: tab.selected(), index: $index }
+              "
+            />
+          } @else {
+            {{ tab.title }}
+          }
         </li>
       }
     </ul>
@@ -40,21 +60,29 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       <ng-content />
     </div>
   `,
+  imports: [NgTemplateOutlet],
   styleUrl: './tabs.component.scss',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabGroup4 implements OnChanges, AfterContentInit {
+export class TabsGroup implements OnChanges, AfterContentInit {
   private destroyRef = inject(DestroyRef);
-  private cdr = inject(ChangeDetectorRef);
 
-  @ContentChildren(Tab4) tabs?: QueryList<Tab4>;
-
-  @Input() fullWidthTabs: boolean = false;
-
-  @Input() centeredTabs: boolean = false;
+  private tabOptions = inject(TAB_OPTIONS);
 
   @Input() activeIndex: number = 0;
+
   @Output() activeIndexChange = new EventEmitter<number>();
+
+  /*
+   * Whether the tabs should take up the full width of the container.
+   */
+  @Input() fullWidthTabs: boolean = this.tabOptions.fullWidthTabs;
+
+  /*
+   * Whether the tabs should be centered.
+   */
+  @Input() centeredTabs = this.tabOptions.centeredTabs;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['activeIndex'].currentValue) {
@@ -62,14 +90,13 @@ export class TabGroup4 implements OnChanges, AfterContentInit {
     }
   }
 
+  @ContentChildren(Tab) tabs: QueryList<Tab> | undefined;
+
   ngAfterContentInit() {
     if (this.tabs) {
-      // select the activeIndex by default
-      this.selectTab(this.activeIndex);
-
       this.tabs.changes
         .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
+        .subscribe((changes) => {
           const tabs = this.tabs?.toArray() || [];
 
           // if there are no tabs, do nothing
@@ -86,7 +113,12 @@ export class TabGroup4 implements OnChanges, AfterContentInit {
               this.selectTab(0);
             }
           }
+
+          console.log({ changes });
         });
+
+      // select the first tab by default
+      this.selectTab(this.activeIndex);
     }
   }
 
@@ -95,12 +127,10 @@ export class TabGroup4 implements OnChanges, AfterContentInit {
       tab.selected.set(i === index);
     });
 
-    if (this.activeIndex !== index) {
-      this.activeIndexChange.emit(index);
-    }
+    this.activeIndexChange.emit(index);
   }
 
-  selectedTab() {
+  private selectedTab(): Tab | undefined {
     return this.tabs?.find((tab) => tab.selected());
   }
 }

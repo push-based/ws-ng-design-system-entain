@@ -18,8 +18,7 @@ import { TabGroup2 } from '@ng-ds-ws/ui';
         <app-tabs-settings
           [(activeIndex)]="activeIndex"
           [(fullWidth)]="fullWidth"
-          [(centered)]="centered"
-        />
+          [(centered)]="centered" />
         <br />
         <hr />
         <br />
@@ -30,8 +29,7 @@ import { TabGroup2 } from '@ng-ds-ws/ui';
       [tabs]="tabs"
       [(activeIndex)]="activeIndex"
       [centeredTabs]="centered"
-      [fullWidthTabs]="fullWidth"
-    />
+      [fullWidthTabs]="fullWidth" />
 
     <ng-container [ngSwitch]="activeIndex">
       <div *ngSwitchCase="0">Tab1 content</div>
