@@ -82,14 +82,14 @@ type Story = StoryObj<Button>;
 export const Primary: Story = {
   args: meta.args,
   name: 'Primary',
-  // play: async ({ canvasElement, args }) => {
-  //   const canvas = within(canvasElement);
-  //   const button = canvas.getByRole('button');
-  //   fireEvent.focus(button);
-  //   const user = userEvent.setup();
-  //   await user.click(button);
-  //   await expect(args.onClick).toHaveBeenCalled();
-  // },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+    fireEvent.focus(button);
+    const user = userEvent.setup();
+    await user.click(button);
+    await expect(args.onClick).toHaveBeenCalled();
+  },
 };
 
 export const DisabledSmGhost: Story = {
