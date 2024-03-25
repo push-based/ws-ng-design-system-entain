@@ -1,4 +1,4 @@
-import {addons} from '@storybook/manager-api';
+import { addons } from '@storybook/manager-api';
 import pushBasedTheme from './push-based.theme';
 
 addons.setConfig({
@@ -10,7 +10,7 @@ addons.setConfig({
     filters: {
       patterns: (story) => {
         return !story?.tags?.includes('template');
-      }
-    }
-  }
+      },
+    },
+  },
 });

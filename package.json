@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve movies"
+    "start": "nx serve movies",
+    "build-storybook": "nx run-many --target=build-storybook --all",
+    "chromatic": "npx chromatic"
   },
   "private": true,
   "dependencies": {

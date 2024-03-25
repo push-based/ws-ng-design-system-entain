@@ -1,0 +1,155 @@
+@import '../themes/theme-1';
+@import '../themes/theme-2';
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  content-visibility: auto;
+  gap: var(--button-gap);
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding-x) var(--button-padding-y);
+  height: var(--button-height);
+  min-width: var(--button-min-width);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &.lg {
+    --button-font-size: 13px;
+    --button-font-weight: 500;
+    --button-padding-x: var(--components-button-padding-x-lg);
+    --button-padding-y: var(--components-button-padding-y-lg);
+    --button-gap: var(--components-button-gap-lg);
+    --button-border-radius: var(--components-button-border-radius-lg);
+    --button-height: var(--components-button-height-lg);
+    --button-min-width: var(--components-button-min-width-lg);
+  }
+
+  &.md {
+    --button-font-size: 11px;
+    --button-font-weight: 500;
+    --button-padding-x: var(--components-button-padding-x-md);
+    --button-padding-y: var(--components-button-padding-y-md);
+    --button-gap: var(--components-button-gap-md);
+    --button-border-radius: var(--components-button-border-radius-md);
+    --button-height: var(--components-button-height-md);
+    --button-min-width: var(--components-button-min-width-md);
+  }
+
+  &.sm {
+    --button-font-size: 9px;
+    --button-font-weight: 400;
+    --button-padding-x: var(--components-button-padding-x-sm);
+    --button-padding-y: var(--components-button-padding-y-sm);
+    --button-gap: var(--components-button-gap-sm);
+    --button-border-radius: var(--components-button-border-radius-sm);
+    --button-height: var(--components-button-height-sm);
+    --button-min-width: var(--components-button-min-width-sm);
+  }
+
+  &.xl {
+    --button-font-size: 20px;
+    --button-font-weight: 400;
+    --button-padding-x: var(--components-button-padding-x-xl);
+    --button-padding-y: var(--components-button-padding-y-xl);
+    --button-gap: var(--components-button-gap-xl);
+    --button-border-radius: var(--components-button-border-radius-xl);
+    --button-height: var(--components-button-height-xl);
+    --button-min-width: var(--components-button-min-width-xl);
+  }
+
+  &.primary {
+    background: var(--components-button-primary-color-default-bg);
+    border: 1px solid var(--components-button-primary-color-default-border);
+    color: var(--components-button-primary-color-default-text);
+    fill: var(--components-button-primary-color-default-text);
+
+    &:hover {
+      background: var(--components-button-primary-color-hover-bg);
+      border: 1px solid var(--components-button-primary-color-hover-border);
+      color: var(--components-button-primary-color-hover-text);
+      fill: var(--components-button-primary-color-hover-text);
+    }
+
+    &:active {
+      background: var(--components-button-primary-color-pressed-bg);
+      border: 1px solid var(--components-button-primary-color-pressed-border);
+      color: var(--components-button-primary-color-pressed-text);
+      fill: var(--components-button-primary-color-pressed-text);
+    }
+
+  }
+
+  &.secondary {
+    background: var(--components-button-secondary-color-default-bg);
+    border: 1px solid var(--components-button-secondary-color-default-border);
+    color: var(--components-button-secondary-color-default-text);
+    fill: var(--components-button-secondary-color-default-text);
+
+    &:hover {
+      background: var(--components-button-secondary-color-hover-bg);
+      border: 1px solid var(--components-button-secondary-color-hover-border);
+      color: var(--components-button-secondary-color-hover-text);
+      fill: var(--components-button-secondary-color-hover-text);
+    }
+
+    &:active {
+      background: var(--components-button-secondary-color-pressed-bg);
+      border: 1px solid var(--components-button-secondary-color-pressed-border);
+      color: var(--components-button-secondary-color-pressed-text);
+      fill: var(--components-button-secondary-color-pressed-text);
+    }
+  }
+
+  &.ghost {
+    background: var(--components-button-ghost-light-color-default-bg);
+    border: 1px solid var(--components-button-ghost-light-color-default-border);
+    color: var(--components-button-ghost-light-color-default-text);
+    fill: var(--components-button-ghost-light-color-default-text);
+
+    &:hover {
+      background: var(--components-button-ghost-light-color-hover-bg);
+      border: 1px solid var(--components-button-ghost-light-color-hover-border);
+      color: var(--components-button-ghost-light-color-hover-text);
+      fill: var(--components-button-ghost-light-color-hover-text);
+    }
+
+    &:active {
+      background: var(--components-button-ghost-light-color-pressed-bg);
+      border: 1px solid var(--components-button-ghost-light-color-pressed-border);
+      color: var(--components-button-ghost-light-color-pressed-text);
+      fill: var(--components-button-ghost-light-color-pressed-text);
+    }
+  }
+
+  &.success {
+    background: var(--components-button-success-color-default-bg);
+    border: 1px solid var(--components-button-success-color-default-border);
+    color: var(--components-button-success-color-default-text);
+    fill: var(--components-button-success-color-default-text);
+
+    &:hover {
+      background: var(--components-button-success-color-hover-bg);
+      border: 1px solid var(--components-button-success-color-hover-border);
+      color: var(--components-button-success-color-hover-text);
+      fill: var(--components-button-success-color-hover-text);
+    }
+
+    &:active {
+      background: var(--components-button-success-color-pressed-bg);
+      border: 1px solid var(--components-button-success-color-pressed-border);
+      color: var(--components-button-success-color-pressed-text);
+      fill: var(--components-button-success-color-pressed-text);
+    }
+  }
+}
+
