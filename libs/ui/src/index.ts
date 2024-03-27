@@ -5,3 +5,5 @@ export * from './lib/tabs-4';
 export * from './lib/tabs-5';
 export * from './lib/tabs-6';
 export * from './lib/final-tabs';
+export * from './lib/button/icon-button/icon-button.component';
+export * from './lib/button/custom-button.component';
